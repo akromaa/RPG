@@ -1,43 +1,45 @@
-#coding:utf-8
-
+# coding:utf-8
 
 import pygame
 from Player import *
 from game import *
-from projectiles import Projectiles
+from projectiles import *
 
+# initilisation de la fenetre:
 pygame.init()
 window_resolution = (1200, 1000)
-
-pygame.display.set_caption("VIDOC")  # titre de la fenetre
 window_surface = pygame.display.set_mode(window_resolution, pygame.RESIZABLE)
 
+
+# titre du jeu
+pygame.display.set_caption("VIDOC")  # titre de la fenetre
+
+# importation des images de fond :
 image_village1 = pygame.image.load("images/map_debut.png").convert()
 
 
-
+# creation des objets :
 game = Game()
-chat = pygame.image.load("cat.png").convert_alpha()
-rectChat = chat.get_rect()
 
 
-
-
+# délimitation de la vitesse du jeu
 fps = pygame.time.Clock()
+
+
 launched = True
 while launched:
     fps.tick(60)
     for projectile in game.hero.all_projectile:
         projectile.mouvement()
 
-
-
+    # application de l'imga de fond
     window_surface.blit(image_village1, (0, 0))
-    index_img = 0
+
+
     game.hero.all_projectile.draw(window_surface)
 
-    #blue_bird.move_bird()
-    #window_surface.blit(blue_bird.frame[blue_bird.direction][blue_bird.index_img], (blue_bird.rect.x, blue_bird.rect.y))
+    # blue_bird.move_bird()
+    # window_surface.blit(blue_bird.frame[blue_bird.direction][blue_bird.index_img], (blue_bird.rect.x, blue_bird.rect.y))
 
     if game.pressed.get(pygame.K_RIGHT):  # si touche droite pressé alors Game-> Perso bouge
         game.hero.move_right()
@@ -53,6 +55,7 @@ while launched:
         game.hero.direction_tir = "down"
 
     window_surface.blit(game.hero.frame[game.hero.direction][game.hero.index_img], (game.hero.rect.x, game.hero.rect.y))
+
     game.hero.frame.update()
 
     for event in pygame.event.get():
@@ -67,8 +70,6 @@ while launched:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 launched = False
-
+    game.hero.all_projectile.update()
     pygame.time.wait(60)
     pygame.display.flip()
-
-
