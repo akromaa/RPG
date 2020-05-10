@@ -1,6 +1,7 @@
 import pygame
 import random
-from projectiles import *
+from projectiles import Projectiles, Cercle_feu_glace, Flamme
+test = 1
 
 
 class Player(pygame.sprite.Sprite):
@@ -52,37 +53,45 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.velocity
         self.direction = pygame.K_RIGHT
         self.index_img = (self.index_img + 1) % 9
-        # if pygame.sprite.collide_mask(self.game.hero, self.witch):
+        if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
+            self.rect.x -= self.velocity
         # self.rect.x, self.rect.y = 100, 100
-        # self.rect.x -= self.velocity
+
 
     def move_left(self):
         self.rect.x -= self.velocity
         self.direction = pygame.K_LEFT
         self.index_img = (self.index_img + 1) % 9
-        # if  pygame.sprite.collide_mask(self.game.hero, self.witch):
-        # self.rect.x += self.velocity
+        if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
+            self.rect.x += self.velocity
 
     def move_up(self):
         self.rect.y -= self.velocity
         self.direction = pygame.K_UP
         self.index_img = (self.index_img + 1) % 9
-        # if pygame.sprite.collide_mask(self.game.hero, self.witch):
-        # self.rect.y += self.velocity
+        if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
+            self.rect.y += self.velocity
 
     def move_down(self):
         self.rect.y += self.velocity
         self.direction = pygame.K_DOWN
         self.index_img = (self.index_img + 1) % 9
-        # if pygame.sprite.collide_mask(self.game.hero, self.witch):
-        # self.rect.y -= self.velocity
+        if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
+            self.rect.y -= self.velocity
 
     @property
     def mask(self):
         return pygame.mask.from_surface(self.frame[self.direction][self.index_img])
 
-    def launch_projectile(self):
-        self.all_projectile.add(Projectiles(self.rect.x, self.rect.y, self.direction_tir, self.vitesse))
+    def launch_projectile(self, nb):
+        self.nb = nb
+        if self.nb == 1:
+            self.all_projectile.add(Projectiles( self.rect.x, self.rect.y, self.direction_tir, 1))
+        elif self.nb == 2:
+            self.all_projectile.add(Cercle_feu_glace(self.rect.x, self.rect.y, self.direction_tir, 10))
+        elif self.nb == 3:
+            self.all_projectile.add(Flamme( self.rect.x, self.rect.y, self.direction_tir, 10))
+
 
 
 

@@ -1,9 +1,9 @@
 # coding:utf-8
 
 import pygame
-from Player import *
+from Player import Player
 from game import *
-from projectiles import *
+from projectiles import Projectiles
 
 # initilisation de la fenetre:
 pygame.init()
@@ -29,6 +29,8 @@ fps = pygame.time.Clock()
 launched = True
 while launched:
     fps.tick(60)
+
+    # recuperation des projectiles
     for projectile in game.hero.all_projectile:
         projectile.mouvement()
 
@@ -55,6 +57,7 @@ while launched:
         game.hero.direction_tir = "down"
 
     window_surface.blit(game.hero.frame[game.hero.direction][game.hero.index_img], (game.hero.rect.x, game.hero.rect.y))
+    window_surface.blit(game.squellette.frame[game.squellette.direction][game.squellette.index_img], (game.squellette.rect.x, game.squellette.rect.y))
 
     game.hero.frame.update()
 
@@ -64,7 +67,11 @@ while launched:
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
             if event.key == pygame.K_SPACE:
-                game.hero.launch_projectile()
+                game.hero.launch_projectile(1)
+            elif event.key == pygame.K_1:
+                game.hero.launch_projectile(2)
+            elif event.key == pygame.K_2:
+                game.hero.launch_projectile(3)
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
         elif event.type == pygame.KEYDOWN:
