@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.pos_player = self.rect.x, self.rect.y = pos_player
         print(self.rect.x, self.rect.y)
         self.all_projectile = pygame.sprite.Group()
+        self.all_spell = pygame.sprite.Group()
         self.direction_tir = 1
         self.vitesse = 5
 
@@ -86,11 +87,16 @@ class Player(pygame.sprite.Sprite):
     def launch_projectile(self, nb):
         self.nb = nb
         if self.nb == 1:
-            self.all_projectile.add(Projectiles( self.rect.x, self.rect.y, self.direction_tir, 1))
+            self.all_projectile.add(Projectiles(self, self.rect.x, self.rect.y, self.direction_tir, 1))
         elif self.nb == 2:
-            self.all_projectile.add(Cercle_feu_glace(self.rect.x, self.rect.y, self.direction_tir, 10))
-        elif self.nb == 3:
-            self.all_projectile.add(Flamme( self.rect.x, self.rect.y, self.direction_tir, 10))
+            self.all_projectile.add(Cercle_feu_glace(self, self.rect.x, self.rect.y, self.direction_tir, 10))
+
+
+    def launch_spell(self, spell):
+        self.spell = spell
+        if self.spell == 1:
+            self.all_spell.add(Flamme(self, self.rect.x, self.rect.y, self.direction_tir, 0))
+
 
 
 

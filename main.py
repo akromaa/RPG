@@ -8,7 +8,7 @@ from projectiles import Projectiles
 # initilisation de la fenetre:
 pygame.init()
 window_resolution = (1200, 1000)
-window_surface = pygame.display.set_mode(window_resolution, pygame.RESIZABLE)
+window_surface = pygame.display.set_mode(window_resolution)
 
 
 # titre du jeu
@@ -16,10 +16,12 @@ pygame.display.set_caption("VIDOC")  # titre de la fenetre
 
 # importation des images de fond :
 image_village1 = pygame.image.load("images/map_debut.png").convert()
+image_village1 = pygame.transform.scale(image_village1, (window_resolution)) # callage de l'image du fond sur la résolution de l'ecran(window_resolution)
 
 
 # creation des objets :
 game = Game()
+
 
 
 # délimitation de la vitesse du jeu
@@ -33,12 +35,17 @@ while launched:
     # recuperation des projectiles
     for projectile in game.hero.all_projectile:
         projectile.mouvement()
+        projectile.update()
+
+    for projectile in game.hero.all_spell:
+        projectile.update_spell()
 
     # application de l'imga de fond
     window_surface.blit(image_village1, (0, 0))
 
 
     game.hero.all_projectile.draw(window_surface)
+    game.hero.all_spell.draw(window_surface)
 
     # blue_bird.move_bird()
     # window_surface.blit(blue_bird.frame[blue_bird.direction][blue_bird.index_img], (blue_bird.rect.x, blue_bird.rect.y))
@@ -71,12 +78,14 @@ while launched:
             elif event.key == pygame.K_1:
                 game.hero.launch_projectile(2)
             elif event.key == pygame.K_2:
-                game.hero.launch_projectile(3)
+                game.hero.launch_spell(1)
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 launched = False
-    game.hero.all_projectile.update()
+
+
+
     pygame.time.wait(60)
     pygame.display.flip()
