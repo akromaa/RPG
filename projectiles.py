@@ -42,6 +42,10 @@ class Projectiles(pygame.sprite.Sprite):
         if self.player.game.check_collision(self.player.game.squellette, self.player.all_projectile): # si collision remove du projectile
             self.remove()
 
+
+
+
+
     def update(self):
         self.index += 1
         if self.index >= len(self.images):
@@ -50,7 +54,8 @@ class Projectiles(pygame.sprite.Sprite):
 
     def update_spell(self):
         self.index += 1
-        if self.index == len(self.images):
+
+        if self.index >= len(self.images)-1 :
             self.remove()
         self.image = self.images[self.index]
 
@@ -69,8 +74,6 @@ class Cercle_feu_glace(Projectiles,pygame.sprite.Sprite):
 
     def __init__(self,player, x, y, direction_tir, vitesse):
         super().__init__(player, x, y, direction_tir, vitesse)
-
-
         self.direction_tir = direction_tir
         self.velocity = 5
         self.images = []
@@ -92,28 +95,36 @@ class Flamme(Projectiles,pygame.sprite.Sprite):
 
     def __init__(self,player, x, y, direction_tir, vitesse):
         super().__init__(player, x, y, direction_tir, vitesse)
-        print(direction_tir)
-
         self.direction_tir = direction_tir
         self.velocity = 5
         self.images = []
-        #self.images = pygame.transform.scale(self.images, (50, 50))# pas dans une liste
 
         self.image1 = pygame.image.load("images/feux.png")
-        self.spell = 0
-        print(self.spell)
 
         self.images.append(self.image1.subsurface(pygame.Rect(0 % 5 * 64, 0 // 5 * 64, 64, 64)))
         self.images.append(self.image1.subsurface(pygame.Rect(1 % 5 * 64, 1 // 5 * 64, 64, 64)))
         self.images.append(self.image1.subsurface(pygame.Rect(2 % 5 * 64, 2 // 5 * 64, 64, 64)))
-
-        self.rect = pygame.Rect(0, 0, 64, 64)
+        self.images.append(self.image1.subsurface(pygame.Rect(3 % 5 * 64, 3 // 5 * 64, 64, 64)))
+        self.images.append(self.image1.subsurface(pygame.Rect(4 % 5 * 64, 4 // 5 * 64, 64, 64)))
+        self.images.append(self.image1.subsurface(pygame.Rect(5 % 5 * 64, 5 // 5 * 64, 64, 64)))
+        self.images.append(self.image1.subsurface(pygame.Rect(6 % 5 * 64, 6 // 5 * 64, 64, 64)))
+        self.images.append(self.image1.subsurface(pygame.Rect(7 % 5 * 64, 7 // 5 * 64, 64, 64)))
+        self.images.append(self.image1.subsurface(pygame.Rect(8 % 5 * 64, 8 // 5 * 64, 64, 64)))
+        self.images.append(self.image1.subsurface(pygame.Rect(9 % 5 * 64, 9 // 5 * 64, 64, 64)))
         self.index = 0
         self.image = self.images[self.index]
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.vitesse = vitesse
+        self.distance = vitesse
+        if self.direction_tir == "right":
+            self.rect.x += self.distance
+        elif self.direction_tir == "left" :
+            self.rect.x -= self.distance
+        elif self.direction_tir == "up":
+            self.rect.y -= self.distance
+        elif self.direction_tir == "down":
+            self.rect.y += self.distance
 
 
 

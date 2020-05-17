@@ -1,10 +1,13 @@
 import pygame
 import random
+from dialogue import *
 from projectiles import Projectiles, Cercle_feu_glace, Flamme
-test = 1
+
 
 
 class Player(pygame.sprite.Sprite):
+
+
     def __init__(self, game, image_player, pos_player, view):
         super().__init__()
 
@@ -24,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         print(self.rect.x, self.rect.y)
         self.all_projectile = pygame.sprite.Group()
         self.all_spell = pygame.sprite.Group()
-        self.direction_tir = 1
+        self.direction_tir = "down"
         self.vitesse = 5
 
 
@@ -56,6 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.index_img = (self.index_img + 1) % 9
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.x -= self.velocity
+
         # self.rect.x, self.rect.y = 100, 100
 
 
@@ -66,12 +70,15 @@ class Player(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.x += self.velocity
 
+
     def move_up(self):
         self.rect.y -= self.velocity
         self.direction = pygame.K_UP
         self.index_img = (self.index_img + 1) % 9
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.y += self.velocity
+            self.game.dialogue()
+
 
     def move_down(self):
         self.rect.y += self.velocity
@@ -95,7 +102,10 @@ class Player(pygame.sprite.Sprite):
     def launch_spell(self, spell):
         self.spell = spell
         if self.spell == 1:
-            self.all_spell.add(Flamme(self, self.rect.x, self.rect.y, self.direction_tir, 0))
+            self.all_spell.add(Flamme(self, self.rect.x, self.rect.y, self.direction_tir, 100))
+            print(self.direction_tir)
+
+
 
 
 
