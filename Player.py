@@ -97,6 +97,7 @@ class Player(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.y -= self.velocity
 
+
     @property
     def mask(self):
         return pygame.mask.from_surface(self.frame[self.direction][self.index_img])

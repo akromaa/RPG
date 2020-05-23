@@ -12,6 +12,8 @@ class Game():
 
         self.all_player = pygame.sprite.Group()
         self.all_pnj = pygame.sprite.Group()
+        self.all_pnj.add(self.squellette)
+        self.all_player.add(self.hero)
 
 
     def check_collision(self, sprite, group):
