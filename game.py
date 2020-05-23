@@ -24,7 +24,10 @@ class Game():
     def player_list(self):
         self.all_player.add(self.hero)# ajout du hero dans le groupe de sprite all_player
 
+
     def dialogue(self):
+        print(self.all_pnj)
+        print(self.all_player)
         if pygame.sprite.groupcollide(self.all_player, self.all_pnj, False, False):
             print (texte1)
 

@@ -72,6 +72,7 @@ while launched:
         game.hero.move_up()
         game.hero.direction_tir = "up"
 
+
     elif game.pressed.get(pygame.K_DOWN):
         game.hero.move_down()
         game.hero.direction_tir = "down"

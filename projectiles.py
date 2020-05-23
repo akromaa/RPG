@@ -90,6 +90,7 @@ class Cercle_feu_glace(Projectiles,pygame.sprite.Sprite):
         self.rect.x = x - 80
         self.rect.y = y - 50
         self.vitesse = vitesse
+        print(self.images)
 
 class Flamme(Projectiles,pygame.sprite.Sprite):
 

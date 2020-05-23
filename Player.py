@@ -31,6 +31,7 @@ class Player(pygame.sprite.Sprite):
         self.vitesse = 5
 
 
+
     def move_bird(self):
         self.fps = pygame.time.Clock()
         self.size = (500, 500)
@@ -57,8 +58,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.velocity
         self.direction = pygame.K_RIGHT
         self.index_img = (self.index_img + 1) % 9
+        if self.rect.right > 1198:
+            self.rect.x -= self.velocity
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.x -= self.velocity
+
 
         # self.rect.x, self.rect.y = 100, 100
 
@@ -67,6 +71,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x -= self.velocity
         self.direction = pygame.K_LEFT
         self.index_img = (self.index_img + 1) % 9
+        if self.rect.left < 0:
+            self.rect.x += self.velocity
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.x += self.velocity
 
@@ -75,6 +81,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y -= self.velocity
         self.direction = pygame.K_UP
         self.index_img = (self.index_img + 1) % 9
+        if self.rect.top < 0:
+            self.rect.y += self.velocity
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.y += self.velocity
             self.game.dialogue()
@@ -84,6 +92,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.velocity
         self.direction = pygame.K_DOWN
         self.index_img = (self.index_img + 1) % 9
+        if self.rect.bottom > 1000:
+            self.rect.y -= self.velocity
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.y -= self.velocity
 
