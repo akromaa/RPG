@@ -15,6 +15,8 @@ class Game():
         self.all_pnj.add(self.squellette)
         self.all_player.add(self.hero)
 
+        self.all_dialogue = pygame.sprite.Group()
+
 
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
@@ -28,9 +30,7 @@ class Game():
 
 
     def dialogue(self):
-        print(self.all_pnj)
-        print(self.all_player)
         if pygame.sprite.groupcollide(self.all_player, self.all_pnj, False, False):
-            print (texte1)
+            print (hello_texte_surface)
 
 

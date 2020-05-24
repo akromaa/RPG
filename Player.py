@@ -85,7 +85,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.y += self.velocity
         if pygame.sprite.collide_mask(self.game.hero, self.game.squellette):
             self.rect.y += self.velocity
-            self.game.dialogue()
+
+
 
 
     def move_down(self):
